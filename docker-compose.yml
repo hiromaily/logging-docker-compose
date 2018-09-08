@@ -1,0 +1,53 @@
+version: "3"
+
+#Docker Reference Architecture: Docker Logging Design and Best Practices
+#https://success.docker.com/article/logging-best-practices
+#https://docs.docker.com/config/containers/logging/configure/
+#https://docs.docker.com/compose/compose-file/#logging
+#https://medium.com/@commondream/full-featured-development-logging-with-docker-compose-fluentd-elasticsearch-and-grafana-ce3bec720dd9
+#https://docs.docker.com/engine/reference/builder/#onbuild
+
+services:
+  #Golang project
+  go-app:
+    image: golang:1.11
+    #WARNING: no logs are available with the 'fluentd' log driver
+    #docker info | grep 'Logging Driver'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: "localhost:24224"
+        tag: "docker.{{.ID}}"
+    volumes:
+      - ./cmd/:/usr/src/cmd/
+    command: go run /usr/src/cmd/main.go
+
+  #Fluentd
+  #https://www.fluentd.org/guides/recipes/docker-logging
+  #https://docs.docker.com/config/containers/logging/fluentd/
+  fluentd:
+    build:
+      context: ./docker/fluentd/
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+
+  #Elasticsearch
+  #https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    expose:
+      - 9200
+      - 9300
+    environment:
+      - discovery.type=single-node
+
+  #Grafana
+  grafana:
+    image: grafana/grafana:5.2.4
+    ports:
+      - 3000:3000
+    volumes:
+      - ./docker/grafana:/var/lib/grafana
+    depends_on:
+      - elasticsearch
