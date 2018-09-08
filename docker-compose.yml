@@ -48,6 +48,7 @@ services:
     ports:
       - 3000:3000
     volumes:
+      #save to local
       - ./docker/grafana:/var/lib/grafana
     depends_on:
       - elasticsearch
