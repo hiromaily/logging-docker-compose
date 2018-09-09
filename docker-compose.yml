@@ -41,6 +41,8 @@ services:
       - 9300
     environment:
       - discovery.type=single-node
+    volumes:
+      - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
 
   #Grafana
   grafana:

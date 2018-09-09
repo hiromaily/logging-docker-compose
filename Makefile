@@ -3,4 +3,4 @@ up-infra:
 	#http://localhost:3000
 
 up-app:
-	docker-compose up app
+	docker-compose up go-app
