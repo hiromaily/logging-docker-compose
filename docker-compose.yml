@@ -7,6 +7,9 @@ version: "3"
 #https://medium.com/@commondream/full-featured-development-logging-with-docker-compose-fluentd-elasticsearch-and-grafana-ce3bec720dd9
 #https://docs.docker.com/engine/reference/builder/#onbuild
 
+volumes:
+  grafana_storage: {}
+
 services:
   #Golang project
   go-app:
@@ -45,12 +48,14 @@ services:
       - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
 
   #Grafana
+  #http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later
   grafana:
-    image: grafana/grafana:5.2.4
+    image: grafana/grafana:5.4.2
     ports:
       - 3000:3000
     volumes:
       #save to local
-      - ./docker/grafana:/var/lib/grafana
+      #- ./docker/grafana:/var/lib/grafana
+      - grafana_storage:/var/lib/grafana
     depends_on:
       - elasticsearch
