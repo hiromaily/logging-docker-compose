@@ -38,7 +38,7 @@ services:
   #Elasticsearch
   #https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     expose:
       - 9200
       - 9300
