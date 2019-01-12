@@ -29,6 +29,6 @@ func main(){
 		//log.Fatal("MAYDAY MAYDAY MAYDAY")
 		//log.Panic("Do not panic")
 
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(2 * time.Second)
 	}
 }
