@@ -1,5 +1,8 @@
 .DS_Store
 .idea
+docker/node/btc
 docker/grafana/*
 docker/elasticsearch/data/*
 !.gitkeep
+!bitcoin.conf
+
