@@ -17,5 +17,8 @@ up-infra:
 	docker-compose up fluentd elasticsearch grafana
 	#http://localhost:3000
 
+up-btc:
+	UID=${UID} GID=${GID} docker-compose up btc-node
+
 up-app:
 	docker-compose up go-app
