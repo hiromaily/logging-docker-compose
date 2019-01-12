@@ -1,3 +1,8 @@
+UID=`id -u`
+GID=`id -g`
+
+#UID=`id -u` GID=`id -g` docker-compose up
+
 bld-ubuntu:
 	docker-compose build ubuntu18-04
 
