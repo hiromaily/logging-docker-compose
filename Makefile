@@ -11,7 +11,7 @@ bld-ubuntu:
 	docker-compose build ubuntu18-04
 
 bld-btc:
-	UID=$UID GID=$GID docker-compose build btc-node
+	UID=${UID} GID=${GID} docker-compose build btc-node
 
 up-infra:
 	docker-compose up fluentd elasticsearch grafana
