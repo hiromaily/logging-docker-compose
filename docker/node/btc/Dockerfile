@@ -6,8 +6,15 @@ RUN add-apt-repository ppa:bitcoin/bitcoin && \
 RUN apt-get update && \
     apt-get install -y libstdc++-7-dev bitcoind
 
-#RUN mkdir /root/.bitcoin
-#COPY bitcoin.conf /root/.bitcoin/bitcoin.conf
+## CREATE HY USER ##
+RUN mkdir -p /home/hy/.bitcoin
+RUN groupadd -r hy && \
+    useradd -r -g hy -d /home/hy -s /sbin/nologin -c "Docker image user" hy
 
-#ColdwalletはNodeへの接続が不要(8333, 18333)
+#COPY bitcoin.conf /home/hy/.bitcoin/bitcoin.conf
+
+ENV HOME=/home/hy
+USER hy
+
+#keygen, sign walletはNodeへの接続が不要(8333, 18333)
 #EXPOSE 8332 8333 18332 18333

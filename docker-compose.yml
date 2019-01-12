@@ -49,7 +49,7 @@ services:
     image: btc-watch:0.17
     volumes:
       #- btc-node_storage:/root/.bitcoin
-      - ./docker/node/btc/data:/root/.bitcoin
+      - ./docker/node/btc/data:/home/hy/.bitcoin
     user: ${UID}:${GID} #for mac
     ports:
     - "${RPC_PORT:-19332}:18332"
