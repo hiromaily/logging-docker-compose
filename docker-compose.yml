@@ -9,9 +9,23 @@ version: "3"
 
 volumes:
   grafana_storage: {}
+  elastic_storage: {}
+  btc-node_storage: {}
+
 
 services:
-  #Golang project
+  #############################################################################
+  # Base image
+  #############################################################################
+  ubuntu18-04:
+    build:
+      context: ./docker/ubuntu/
+      dockerfile: Dockerfile
+    image: base-ubuntu:18.04
+
+  #############################################################################
+  #Golang project for logging
+  #############################################################################
   go-app:
     image: golang:1.11
     #WARNING: no logs are available with the 'fluentd' log driver
@@ -24,6 +38,36 @@ services:
     volumes:
       - ./cmd/:/usr/src/cmd/
     command: go run /usr/src/cmd/main.go
+
+  #############################################################################
+  # Bitcoin node for logging
+  #############################################################################
+  btc-node:
+    build:
+      context: ./docker/node/btc/
+      dockerfile: Dockerfile
+    image: btc-watch:0.17
+    volumes:
+      #- btc-node_storage:/root/.bitcoin
+      - ./docker/node/btc/data:/root/.bitcoin
+    user: ${UID}:${GID} #for mac
+    ports:
+    - "${RPC_PORT:-19332}:18332"
+    stdin_open: true
+    tty: true
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: "localhost:24224"
+        tag: "docker.{{.ID}}"
+    command: /usr/bin/bitcoind --printtoconsole #--conf=/root/.bitcoin/bitcoind.conf
+    # docker-compose exec btc-node bash
+    # docker-compose exec btc-node bitcoin-cli getnetworkinfo
+    # /root/.bitcoin/testnet3/wallets
+
+  #############################################################################
+  # monitoring
+  #############################################################################
 
   #Fluentd
   #https://www.fluentd.org/guides/recipes/docker-logging
@@ -39,6 +83,8 @@ services:
   #https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    #ports:
+    #  - 9201:9200
     expose:
       - 9200
       - 9300
@@ -46,6 +92,7 @@ services:
       - discovery.type=single-node
     volumes:
       - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
+      #- elastic_storage:/usr/share/elasticsearch/data
 
   #Grafana
   #http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later
@@ -54,7 +101,6 @@ services:
     ports:
       - 3000:3000
     volumes:
-      #save to local
       #- ./docker/grafana:/var/lib/grafana
       - grafana_storage:/var/lib/grafana
     depends_on:
