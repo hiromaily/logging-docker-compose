@@ -35,4 +35,5 @@ logging on docker-compose
 6. Under Data Source choose Logs.
 7. Click the Add button.
 8. Click the back arrow in the top right corner to return to the Dashboard.
+![images](https://raw.githubusercontent.com/hiromaily/logging-docker-compose/master/images/elasticsearch02.png)
 
