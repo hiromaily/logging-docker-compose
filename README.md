@@ -9,6 +9,8 @@ logging on docker-compose
 4.Enter http://elasticsearch:9200 for the URL.
 5.In Index Name enter [logstash-]YYYY.MM.DD and choose Daily in the Pattern field.
 
+[images](https://raw.githubusercontent.com/hiromaily/logging-docker-compose/master/images/elasticsearch01.png)
+
 #### View The Log Data in Grafana
 1.In the left sidebar hover over the plus icon and choose Dashboard.
 2.Choose Table as the panel type and a table will appear.
@@ -22,4 +24,14 @@ logging on docker-compose
 9.Click the + icon next to Columns and choose @timestamp.
 10.Click the + icon again and choose log.
 11.Close the edit panel.
+
+#### Filter the Log Data in Grafana
+1.From the dashboard, click on the gear icon in the top right corner to open the Dashboard settings.
+2.On the left side, click on Variables and click the Add Variable button.
+3.Under Name, enter filter.
+4.For Label, enter Filter.
+5.Under Type, choose Ad hoc filters.
+6.Under Data Source choose Logs.
+7.Click the Add button.
+8.Click the back arrow in the top right corner to return to the Dashboard.
 
