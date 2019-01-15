@@ -46,11 +46,13 @@ services:
     build:
       context: ./docker/node/btc/
       dockerfile: Dockerfile
+      args:
+        userName: ${USERNAME}
     image: btc-watch:0.17
     volumes:
       #- btc-node_storage:/root/.bitcoin
-      - ./docker/node/btc/data:/home/hy/.bitcoin
-    user: ${UID}:${GID}
+      - ./docker/node/btc/data:/home/${USERNAME}/.bitcoin
+    user: ${USERID}:${GID}
     ports:
     - "${RPC_PORT:-19332}:18332"
     stdin_open: true
