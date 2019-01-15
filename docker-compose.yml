@@ -62,6 +62,7 @@ services:
       options:
         fluentd-address: "localhost:24224"
         tag: "docker.btc-node.{{.ID}}"
+        fluentd-async-connect: "true"
     command: /usr/bin/bitcoind --printtoconsole #--conf=/root/.bitcoin/bitcoind.conf
     # docker-compose exec btc-node bash
     # docker-compose exec btc-node bitcoin-cli getnetworkinfo
