@@ -12,7 +12,7 @@ RUN apt-get update && \
 ## CREATE HY USER ##
 RUN mkdir -p /home/${userName}/.bitcoin
 RUN groupadd -r ${userName} && \
-    useradd -r -g ${userName} -d /home/${userName} -s /sbin/nologin -c "Docker image user" hy
+    useradd -r -g ${userName} -d /home/${userName} -s /sbin/nologin -c "Docker image user" ${userName}
 
 #COPY bitcoin.conf /home/${userName}/.bitcoin/bitcoin.conf
 
