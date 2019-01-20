@@ -1,6 +1,6 @@
 .DS_Store
 .idea
-docker/node/btc
+docker/node/btc/data/*
 docker/grafana/*
 docker/elasticsearch/data/*
 !.gitkeep
