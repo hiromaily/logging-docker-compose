@@ -2,18 +2,22 @@ USERNAME=`id -un`
 USERID=`id -u`
 GID=`id -g`
 
-#UID=`id -u` GID=`id -g` docker-compose up
-
 print:
 	@echo ${USERNAME}
 	@echo ${USERID}
 	@echo ${GID}
+	@echo ${USER}
 
 bld-ubuntu:
 	docker-compose build ubuntu18-04
 
+# /bin/sh: UID: readonly variable
 bld-btc:
 	USERNAME=${USERNAME} USERID=${USERID} GID=${GID} docker-compose build btc-node
+
+bld-btc-nocache:
+	USERNAME=${USERNAME} USERID=${USERID} GID=${GID} docker-compose build --no-cache btc-node
+
 
 up-infra:
 	docker-compose up fluentd elasticsearch grafana

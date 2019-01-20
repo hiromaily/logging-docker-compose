@@ -1,5 +1,6 @@
 FROM base-ubuntu:18.04
 
+# user
 ARG userName=hy
 
 RUN add-apt-repository ppa:bitcoin/bitcoin && \
@@ -13,7 +14,7 @@ RUN mkdir -p /home/${userName}/.bitcoin
 RUN groupadd -r ${userName} && \
     useradd -r -g ${userName} -d /home/${userName} -s /sbin/nologin -c "Docker image user" ${userName}
 
-#COPY bitcoin.conf /home/hy/.bitcoin/bitcoin.conf
+#COPY bitcoin.conf /home/${userName}/.bitcoin/bitcoin.conf
 
 ENV HOME=/home/${userName}
 USER ${userName}
