@@ -8,7 +8,7 @@ logging on docker-compose
 2. In the name, enter Logs.
 3. Choose Elasticsearch in the Type drop down.
 4. Enter http://elasticsearch:9200 for the URL.
-5. In Index Name enter [logstash-]YYYY.MM.DD and choose Daily in the Pattern field.
+5. In Index Name enter `[logstash-]YYYY.MM.DD` and choose `Daily` in the Pattern field, otherwise error `no index` will occur.
 
 ![images](https://raw.githubusercontent.com/hiromaily/logging-docker-compose/master/images/elasticsearch01.png)
 
@@ -36,4 +36,6 @@ logging on docker-compose
 7. Click the `Add` button.
 8. Click the back arrow in the top right corner to return to the Dashboard.
 ![images](https://raw.githubusercontent.com/hiromaily/logging-docker-compose/master/images/elasticsearch02.png)
+
+9. Return to Dashboard, and add `container_name.keyword` as Filter name and choose container.
 
