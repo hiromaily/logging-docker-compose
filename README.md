@@ -27,7 +27,7 @@ logging on docker-compose
 11. Close the edit panel.
 
 #### Filter the Log Data in Grafana
-1. From the dashboard(left panel), click on the `gear` icon in the top right corner to open the Dashboard settings.
+1. From the created dashboard(left panel), click on the `gear` icon in the top right corner to open the Dashboard settings.
 2. On the left side, click on Variables and click the `Add Variable` button.
 3. Under Name, enter `filter`.
 4. For Label, enter `Filter`.
